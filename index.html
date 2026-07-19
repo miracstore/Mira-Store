@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miraç Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* 1. BÖLÜM: Giriş Karşılama Ekranı */
+        .welcome-screen {
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid #334155;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f27a1a, #8b5cf6);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+        }
+
+        .card h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .start-btn {
+            display: inline-block;
+            background: #f27a1a;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .start-btn:hover {
+            background: #d9650f;
+        }
+
+        /* 2. BÖLÜM: Trendyol Tarzı Tek Ürün Mağaza Alanı */
+        .store-section {
+            display: block;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background-color: #f27a1a;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .brand-name {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .search-box {
+            display: flex;
+            background: white;
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            align-items: center;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .categories-container {
+            max-width: 500px;
+            margin: 1rem auto;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 0 0.5rem;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .category-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #f27a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            margin-bottom: 0.4rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .category-item span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        /* Tek Ürün İçin Odaklanmış Alan */
+        .products-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e6e6e6;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .fav-icon {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 1rem;
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        /* Ürün Fotoğraf Alanı */
+        .product-image-container {
+            width: 100%;
+            height: 350px;
+            background-color: #eaeaea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-tag {
+            font-weight: bold;
+            color: #f27a1a;
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .product-title {
+            font-size: 1.05rem;
+            color: #333;
+            line-height: 1.4;
+            margin-bottom: 0.6rem;
+            font-weight: 500;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 0.85rem;
+            color: #ffc107;
+            margin-bottom: 0.8rem;
+        }
+
+        .rating-count {
+            color: #999;
+            margin-left: 4px;
+        }
+
+        .badge {
+            background-color: #2dc44d;
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            align-self: flex-start;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #f27a1a;
+            margin-bottom: 1rem;
+        }
+
+        .buy-now-btn {
+            background: #f27a1a;
+            color: white;
+            text-align: center;
+            padding: 0.9rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background 0.2s;
+        }
+
+        .buy-now-btn:hover {
+            background: #d9650f;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- GİRİŞ EKRANI -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="card">
+            <div class="avatar">🎯</div>
+            <h1>Hoşgeldiniz, Miraç Store</h1>
+            <p>Stresinizi azaltacak ve eğlencenizi katlayacak en özel ürünler burada! Alışverişe başlamak için aşağıdaki butona tıklayabilirsiniz.</p>
+            <button onclick="scrollToStore()" class="start-btn">Uygun Fiyatlı Alışveriş Başlasın</button>
+        </div>
+    </div>
+
+    <!-- MAĞAZA EKRANI -->
+    <div class="store-section" id="storeSection">
+        <header>
+            <div class="header-container">
+                <div class="brand-name">Miraç Store</div>
+                <div class="search-box">
+                    <input type="text" placeholder="Stres küpü ara...">
+                    <span>🔍</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Kategoriler -->
+        <div class="categories-container">
+            <div class="category-item">
+                <div class="category-circle">🧘</div>
+                <span>Stres</span>
+            </div>
+            <div class="category-item">
+                <div class="category-circle">🎉</div>
+                <span>Eğlence</span>
+            </div>
+        </div>
+
+        <!-- Tek Ürün Alanı -->
+        <main class="products-container">
+            <div class="product-card">
+                <div class="fav-icon">🤍</div>
+                
+                <!-- ÜRÜN FOTOĞRAFI -->
+                <div class="product-image-container">
+                    <!-- Fotoğrafını buradaki urun.jpg yerine koyabilirsin -->
+                    <img src="urun.jpg" alt="Minecraft Stres Küpü">
+                </div>
+
+                <div class="product-info">
+                    <span class="brand-tag">Miraç Relax</span>
+                    <h2 class="product-title">Minecraft Temalı Sonsuzluk Küpü - İkili Özel Set Stres Küpü</h2>
+                    
+                    <div class="rating">⭐⭐⭐⭐⭐ <span class="rating-count">(482 Değerlendirme)</span></div>
+                    <div class="badge">Kargo Bedava</div>
+                    
+                    <!-- İstenen Fiyat -->
+                    <div class="product-price">100 TL</div>
+                    
+                    <a href="#" class="buy-now-btn">Sepete Ekle</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function scrollToStore() {
+            document.getElementById('storeSection').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+    </script>
+
+</body>
+</html>
